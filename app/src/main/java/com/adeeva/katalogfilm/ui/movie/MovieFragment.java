@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.adeeva.katalogfilm.R;
 import com.adeeva.katalogfilm.data.FilmEntity;
+import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
 
 import java.util.List;
 
@@ -31,7 +32,6 @@ public class MovieFragment extends Fragment {
     public MovieFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +53,8 @@ public class MovieFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (getActivity() != null){
-            MovieViewModel viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MovieViewModel.class);
+            ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
+            MovieViewModel viewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
             List<FilmEntity> movies = viewModel.getMovies();
 
             MovieAdapter movieAdapter = new MovieAdapter();

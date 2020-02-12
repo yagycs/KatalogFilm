@@ -3,14 +3,22 @@ package com.adeeva.katalogfilm.ui.detail;
 import androidx.lifecycle.ViewModel;
 
 import com.adeeva.katalogfilm.data.FilmEntity;
+import com.adeeva.katalogfilm.data.source.FilmRepository;
 import com.adeeva.katalogfilm.utils.DataDummy;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DetailFilmViewModel extends ViewModel {
 
     private String movieId;
     private String tvId;
+
+    private FilmRepository filmRepository;
+
+    public DetailFilmViewModel(FilmRepository mFilmRepository) {
+        this.filmRepository = mFilmRepository;
+    }
 
     public void setSelectedMovie(String movieId) {
         this.movieId = movieId;
@@ -20,25 +28,11 @@ public class DetailFilmViewModel extends ViewModel {
         this.tvId = tvId;
     }
 
-    public FilmEntity getMovie() {
-        FilmEntity film = null;
-        ArrayList<FilmEntity> filmEntities = DataDummy.generateDummyMovie();
-        for (FilmEntity filmEntity : filmEntities) {
-            if (filmEntity.getFilmId().equals(movieId)) {
-                film = filmEntity;
-            }
-        }
-        return film;
+    public FilmEntity getMovie(){
+        return filmRepository.getMoviesWithDetail(movieId);
     }
 
     public FilmEntity getTv() {
-        FilmEntity film = null;
-        ArrayList<FilmEntity> filmEntities = DataDummy.generateDummyTv();
-        for (FilmEntity filmEntity : filmEntities) {
-            if (filmEntity.getFilmId().equals(tvId)) {
-                film = filmEntity;
-            }
-        }
-        return film;
+        return filmRepository.getTvsWithDetail(tvId);
     }
 }

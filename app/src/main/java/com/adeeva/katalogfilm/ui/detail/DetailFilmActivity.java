@@ -3,6 +3,7 @@ package com.adeeva.katalogfilm.ui.detail;
 import android.os.Bundle;
 
 import com.adeeva.katalogfilm.data.FilmEntity;
+import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -43,7 +44,8 @@ public class DetailFilmActivity extends AppCompatActivity {
         imagePoster = findViewById(R.id.image_poster);
         progressBar = findViewById(R.id.progress_bar);
 
-        DetailFilmViewModel viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(DetailFilmViewModel.class);
+        ViewModelFactory factory = ViewModelFactory.getInstance(this);
+        DetailFilmViewModel viewModel = new ViewModelProvider(this, factory).get(DetailFilmViewModel.class);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

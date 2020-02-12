@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.adeeva.katalogfilm.R;
 import com.adeeva.katalogfilm.data.FilmEntity;
+import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
 
 import java.util.List;
 
@@ -53,7 +54,8 @@ public class TvShowFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (getActivity() != null){
-            TvViewModel viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TvViewModel.class);
+            ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
+            TvViewModel viewModel = new ViewModelProvider(this, factory).get(TvViewModel.class);
             List<FilmEntity> tvs = viewModel.getTvs();
 
             TvShowAdapter tvShowAdapter = new TvShowAdapter();

@@ -61,5 +61,29 @@ public class JsonHelper {
         return list;
     }
 
+    public List<FilmResponse> loadTvs(){
+        ArrayList<FilmResponse> list = new ArrayList<>();
+        try {
+            String json = parsingFileToString("TvShowResponses.json");
+            if (json != null){
+                JSONObject responseObject = new JSONObject(json);
+                JSONArray listArray = responseObject.getJSONArray("results");
+                for (int i = 0; i < listArray.length(); i++){
+                    JSONObject movie = listArray.getJSONObject(i);
 
+                    String id = movie.getString("id");
+                    String title = movie.getString("title");
+                    String description = movie.getString("description");
+                    String releaseDate = movie.getString("release_date");
+                    String imagePath = movie.getString("imagePath");
+
+                    FilmResponse filmResponse = new FilmResponse(id, title, description, releaseDate, imagePath);
+                    list.add(filmResponse);
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
