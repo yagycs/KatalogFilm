@@ -1,13 +1,10 @@
 package com.adeeva.katalogfilm.ui.detail;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.adeeva.katalogfilm.data.FilmEntity;
 import com.adeeva.katalogfilm.data.source.FilmRepository;
-import com.adeeva.katalogfilm.utils.DataDummy;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailFilmViewModel extends ViewModel {
 
@@ -28,11 +25,11 @@ public class DetailFilmViewModel extends ViewModel {
         this.tvId = tvId;
     }
 
-    public FilmEntity getMovie(){
+    public LiveData<FilmEntity> getMovie(){
         return filmRepository.getMoviesWithDetail(movieId);
     }
 
-    public FilmEntity getTv() {
+    public LiveData<FilmEntity> getTv() {
         return filmRepository.getTvsWithDetail(tvId);
     }
 }

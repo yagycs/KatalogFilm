@@ -1,17 +1,18 @@
 package com.adeeva.katalogfilm.data.source;
 
+import androidx.lifecycle.LiveData;
+
 import com.adeeva.katalogfilm.data.FilmEntity;
 
 import java.util.List;
 
 public interface FilmDataSource {
 
-    List<FilmEntity> getAllMovies();
+    LiveData<List<FilmEntity>> getAllMovies();
 
-    List<FilmEntity> getAllTvs();
+    LiveData<List<FilmEntity>> getAllTvs();
 
+    LiveData<FilmEntity> getMoviesWithDetail(String movieId);
 
-    FilmEntity getMoviesWithDetail(String movieId);
-
-    FilmEntity getTvsWithDetail(String tvId);
+    LiveData<FilmEntity> getTvsWithDetail(String tvId);
 }

@@ -29,13 +29,16 @@ public class HomeActivityTest {
 
     @Test
     public void loadMovie(){
+        delay2Seconds();
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.scrollToPosition(dummyMovie.size()));
     }
 
     @Test
     public void loadDetailMovie(){
+        delay2Seconds();
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        delay2Seconds();
         onView(withId(R.id.text_title)).check(matches(isDisplayed()));
         onView(withId(R.id.text_title)).check(matches(withText(dummyMovie.get(0).getTitle())));
 
@@ -50,8 +53,16 @@ public class HomeActivityTest {
     @Test
     public void loadTv(){
         onView(withText("Tv Shows")).perform(click());
+        delay2Seconds();
         onView(withId(R.id.rv_tv)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_tv)).perform(RecyclerViewActions.scrollToPosition(dummyTv.size()));
     }
 
+    private void delay2Seconds(){
+        try {
+            Thread.sleep(2000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
 }

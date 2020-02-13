@@ -1,10 +1,10 @@
 package com.adeeva.katalogfilm.ui.tvshow;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.adeeva.katalogfilm.data.FilmEntity;
 import com.adeeva.katalogfilm.data.source.FilmRepository;
-import com.adeeva.katalogfilm.utils.DataDummy;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class TvViewModel extends ViewModel {
         this.filmRepository = mFilmRepository;
     }
 
-    public List<FilmEntity> getTvs(){
+    public LiveData<List<FilmEntity>> getTvs(){
         return filmRepository.getAllTvs();
     }
 }

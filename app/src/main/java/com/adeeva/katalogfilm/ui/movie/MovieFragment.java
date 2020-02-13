@@ -55,10 +55,14 @@ public class MovieFragment extends Fragment {
         if (getActivity() != null){
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
             MovieViewModel viewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
-            List<FilmEntity> movies = viewModel.getMovies();
 
             MovieAdapter movieAdapter = new MovieAdapter();
-            movieAdapter.setFilms(movies);
+            progressBar.setVisibility(View.VISIBLE);
+            viewModel.getMovies().observe(this, movies ->{
+                progressBar.setVisibility(View.GONE);
+                movieAdapter.setFilms(movies);
+                movieAdapter.notifyDataSetChanged();
+            } );
 
             rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
             rvMovie.setHasFixedSize(true);

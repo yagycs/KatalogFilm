@@ -56,10 +56,14 @@ public class TvShowFragment extends Fragment {
         if (getActivity() != null){
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
             TvViewModel viewModel = new ViewModelProvider(this, factory).get(TvViewModel.class);
-            List<FilmEntity> tvs = viewModel.getTvs();
 
             TvShowAdapter tvShowAdapter = new TvShowAdapter();
-            tvShowAdapter.setFilms(tvs);
+            progressBar.setVisibility(View.VISIBLE);
+            viewModel.getTvs().observe(this, tvs ->{
+                progressBar.setVisibility(View.GONE);
+                tvShowAdapter.setFilms(tvs);
+                tvShowAdapter.notifyDataSetChanged();
+            });
 
             rvTv.setLayoutManager(new LinearLayoutManager(getContext()));
             rvTv.setHasFixedSize(true);

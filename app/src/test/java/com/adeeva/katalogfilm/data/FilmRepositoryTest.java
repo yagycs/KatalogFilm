@@ -1,21 +1,32 @@
 package com.adeeva.katalogfilm.data;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+
 import com.adeeva.katalogfilm.data.source.remote.RemoteDataSource;
 import com.adeeva.katalogfilm.data.source.remote.response.FilmResponse;
 import com.adeeva.katalogfilm.utils.DataDummy;
+import com.adeeva.katalogfilm.utils.LiveDataTestUtil;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class FilmRepositoryTest {
 
-    private RemoteDataSource remote = Mockito.mock(RemoteDataSource.class);
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
+    private RemoteDataSource remote = mock(RemoteDataSource.class);
     private FakeFilmRepository filmRepository = new FakeFilmRepository(remote);
 
     private ArrayList<FilmResponse> movieResponses = DataDummy.generateRemoteDummyMovies();
@@ -25,37 +36,55 @@ public class FilmRepositoryTest {
 
     @Test
     public void getAllMovies() {
-        when(remote.getAllMovies()).thenReturn(movieResponses);
-        ArrayList<FilmEntity> movieEntities = filmRepository.getAllMovies();
-        verify(remote).getAllMovies();
+        doAnswer(invocation -> {
+            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+                    .onAllFilmReceived(movieResponses);
+            return null;
+        }).when(remote).getAllMovies(any(RemoteDataSource.LoadFilmCallback.class));
+        List<FilmEntity> movieEntities = LiveDataTestUtil.getValue(filmRepository.getAllMovies());
+        verify(remote).getAllMovies(any(RemoteDataSource.LoadFilmCallback.class));
         assertNotNull(movieEntities);
         assertEquals(movieResponses.size(), movieEntities.size());
     }
 
     @Test
     public void getAllTvs() {
-        when(remote.getAllTvs()).thenReturn(tvResponses);
-        ArrayList<FilmEntity> tvEntities = filmRepository.getAllTvs();
-        verify(remote).getAllTvs();
+        doAnswer(invocation -> {
+            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+                    .onAllFilmReceived(tvResponses);
+            return null;
+        }).when(remote).getAllTvs(any(RemoteDataSource.LoadFilmCallback.class));
+        List<FilmEntity> tvEntities = LiveDataTestUtil.getValue(filmRepository.getAllTvs());
+        verify(remote).getAllTvs(any(RemoteDataSource.LoadFilmCallback.class));
         assertNotNull(tvEntities);
         assertEquals(tvResponses.size(), tvEntities.size());
     }
 
     @Test
     public void getMoviesWithDetail() {
-        when(remote.getAllMovies()).thenReturn(movieResponses);
-        FilmEntity resultMovie = filmRepository.getMoviesWithDetail(movieId);
-        verify(remote).getAllMovies();
+        doAnswer(invocation -> {
+            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+                    .onAllFilmReceived(movieResponses);
+            return null;
+        }).when(remote).getAllMovies(any(RemoteDataSource.LoadFilmCallback.class));
+        FilmEntity resultMovie = LiveDataTestUtil.getValue(filmRepository.getMoviesWithDetail(movieId));
+        verify(remote).getAllMovies(any(RemoteDataSource.LoadFilmCallback.class));
         assertNotNull(resultMovie);
+        assertNotNull(resultMovie.getTitle());
         assertEquals(movieResponses.get(0).getTitle(), resultMovie.getTitle());
     }
 
     @Test
     public void getTvsWithDetail() {
-        when(remote.getAllTvs()).thenReturn(tvResponses);
-        FilmEntity resultTv = filmRepository.getTvsWithDetail(tvId);
-        verify(remote).getAllTvs();
+        doAnswer(invocation -> {
+            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+                    .onAllFilmReceived(tvResponses);
+            return null;
+        }).when(remote).getAllTvs(any(RemoteDataSource.LoadFilmCallback.class));
+        FilmEntity resultTv = LiveDataTestUtil.getValue(filmRepository.getTvsWithDetail(tvId));
+        verify(remote).getAllTvs(any(RemoteDataSource.LoadFilmCallback.class));
         assertNotNull(resultTv);
+        assertNotNull(resultTv.getTitle());
         assertEquals(tvResponses.get(0).getTitle(), resultTv.getTitle());
     }
 }

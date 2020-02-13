@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,15 +54,18 @@ public class DetailFilmActivity extends AppCompatActivity {
             String tvId = extras.getString(EXTRA_TV);
             if (movieId != null) {
                 viewModel.setSelectedMovie(movieId);
-                populateFilm(viewModel.getMovie());
+                progressBar.setVisibility(View.VISIBLE);
+                viewModel.getMovie().observe(this, this::populateFilm);
             } else if (tvId != null){
                 viewModel.setSelectedTv(tvId);
-                populateFilm(viewModel.getTv());
+                progressBar.setVisibility(View.VISIBLE);
+                viewModel.getTv().observe(this, this::populateFilm);
             }
         }
     }
 
     private void populateFilm(FilmEntity filmEntity) {
+        progressBar.setVisibility(View.GONE);
         textTitle.setText(filmEntity.getTitle());
         textDesc.setText(filmEntity.getDescription());
         textDate.setText(getResources().getString(R.string.release, filmEntity.getReleaseDate()));
