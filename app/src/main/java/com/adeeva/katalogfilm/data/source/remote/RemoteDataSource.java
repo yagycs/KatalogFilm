@@ -3,6 +3,7 @@ package com.adeeva.katalogfilm.data.source.remote;
 import android.os.Handler;
 
 import com.adeeva.katalogfilm.data.source.remote.response.FilmResponse;
+import com.adeeva.katalogfilm.utils.EspressoIdlingResource;
 import com.adeeva.katalogfilm.utils.JsonHelper;
 
 import java.util.List;
@@ -27,15 +28,23 @@ public class RemoteDataSource {
         return INSTANCE;
     }
 
-    public void getAllMovies(LoadFilmCallback callback){
-        handler.postDelayed(() -> callback.onAllFilmReceived(jsonHelper.loadMovies()), SERVICE_LATENCY_IN_MILLIS);
+    public void getAllMovies(LoadFilmCallback callback) {
+        EspressoIdlingResource.increment();
+        handler.postDelayed(() -> {
+            callback.onAllFilmReceived(jsonHelper.loadMovies());
+            EspressoIdlingResource.decrement();
+        }, SERVICE_LATENCY_IN_MILLIS);
     }
 
-    public void getAllTvs(LoadFilmCallback callback){
-        handler.postDelayed(() -> callback.onAllFilmReceived(jsonHelper.loadTvs()), SERVICE_LATENCY_IN_MILLIS);
+    public void getAllTvs(LoadFilmCallback callback) {
+        EspressoIdlingResource.increment();
+        handler.postDelayed(() -> {
+            callback.onAllFilmReceived(jsonHelper.loadTvs());
+            EspressoIdlingResource.decrement();
+        }, SERVICE_LATENCY_IN_MILLIS);
     }
 
-    public interface LoadFilmCallback{
+    public interface LoadFilmCallback {
         void onAllFilmReceived(List<FilmResponse> filmResponses);
     }
 }
