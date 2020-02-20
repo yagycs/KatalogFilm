@@ -16,7 +16,7 @@ public class MovieViewModel extends ViewModel {
         this.filmRepository = mFilmRepository;
     }
 
-    public LiveData<List<FilmEntity>> getMovies(){
+    public LiveData<List<FilmEntity>> getMovies() {
         return filmRepository.getAllMovies();
     }
 }

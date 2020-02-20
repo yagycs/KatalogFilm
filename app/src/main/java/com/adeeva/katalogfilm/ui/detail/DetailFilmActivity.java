@@ -1,22 +1,20 @@
 package com.adeeva.katalogfilm.ui.detail;
 
 import android.os.Bundle;
-
-import com.adeeva.katalogfilm.data.FilmEntity;
-import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.adeeva.katalogfilm.R;
+import com.adeeva.katalogfilm.data.FilmEntity;
+import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class DetailFilmActivity extends AppCompatActivity {
 
@@ -56,7 +54,7 @@ public class DetailFilmActivity extends AppCompatActivity {
                 viewModel.setSelectedMovie(movieId);
                 progressBar.setVisibility(View.VISIBLE);
                 viewModel.getMovie().observe(this, this::populateFilm);
-            } else if (tvId != null){
+            } else if (tvId != null) {
                 viewModel.setSelectedTv(tvId);
                 progressBar.setVisibility(View.VISIBLE);
                 viewModel.getTv().observe(this, this::populateFilm);

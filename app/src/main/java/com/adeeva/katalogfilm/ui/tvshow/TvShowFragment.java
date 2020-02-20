@@ -2,6 +2,10 @@ package com.adeeva.katalogfilm.ui.tvshow;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,16 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.adeeva.katalogfilm.R;
-import com.adeeva.katalogfilm.data.FilmEntity;
 import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +38,7 @@ public class TvShowFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         rvTv = view.findViewById(R.id.rv_tv);
@@ -50,16 +46,16 @@ public class TvShowFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity() != null){
+        if (getActivity() != null) {
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
             TvViewModel viewModel = new ViewModelProvider(this, factory).get(TvViewModel.class);
 
             TvShowAdapter tvShowAdapter = new TvShowAdapter();
             progressBar.setVisibility(View.VISIBLE);
-            viewModel.getTvs().observe(this, tvs ->{
+            viewModel.getTvs().observe(this, tvs -> {
                 progressBar.setVisibility(View.GONE);
                 tvShowAdapter.setFilms(tvs);
                 tvShowAdapter.notifyDataSetChanged();

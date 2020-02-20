@@ -32,30 +32,30 @@ public class HomeActivityTest {
     public ActivityTestRule activityTestRule = new ActivityTestRule<>(HomeActivity.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource());
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource());
     }
 
     @Test
-    public void loadMovie(){
+    public void loadMovie() {
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.scrollToPosition(dummyMovie.size()));
     }
 
     @Test
-    public void loadTv(){
+    public void loadTv() {
         onView(withText("Tv Shows")).perform(click());
         onView(withId(R.id.rv_tv)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_tv)).perform(RecyclerViewActions.scrollToPosition(dummyTv.size()));
     }
 
     @Test
-    public void loadDetailMovie(){
+    public void loadDetailMovie() {
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.text_title)).check(matches(isDisplayed()));
         onView(withId(R.id.text_title)).check(matches(withText(dummyMovie.get(0).getTitle())));

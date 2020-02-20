@@ -2,6 +2,10 @@ package com.adeeva.katalogfilm.ui.movie;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,16 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.adeeva.katalogfilm.R;
-import com.adeeva.katalogfilm.data.FilmEntity;
 import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +37,7 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         rvMovie = view.findViewById(R.id.rv_movie);
@@ -49,20 +45,20 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity() != null){
+        if (getActivity() != null) {
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
             MovieViewModel viewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
 
             MovieAdapter movieAdapter = new MovieAdapter();
             progressBar.setVisibility(View.VISIBLE);
-            viewModel.getMovies().observe(this, movies ->{
+            viewModel.getMovies().observe(this, movies -> {
                 progressBar.setVisibility(View.GONE);
                 movieAdapter.setFilms(movies);
                 movieAdapter.notifyDataSetChanged();
-            } );
+            });
 
             rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
             rvMovie.setHasFixedSize(true);

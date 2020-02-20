@@ -9,17 +9,16 @@ import com.adeeva.katalogfilm.utils.LiveDataTestUtil;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class FilmRepositoryTest {
 
@@ -37,7 +36,7 @@ public class FilmRepositoryTest {
     @Test
     public void getAllMovies() {
         doAnswer(invocation -> {
-            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+            ((RemoteDataSource.LoadFilmCallback) invocation.getArguments()[0])
                     .onAllFilmReceived(movieResponses);
             return null;
         }).when(remote).getAllMovies(any(RemoteDataSource.LoadFilmCallback.class));
@@ -50,7 +49,7 @@ public class FilmRepositoryTest {
     @Test
     public void getAllTvs() {
         doAnswer(invocation -> {
-            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+            ((RemoteDataSource.LoadFilmCallback) invocation.getArguments()[0])
                     .onAllFilmReceived(tvResponses);
             return null;
         }).when(remote).getAllTvs(any(RemoteDataSource.LoadFilmCallback.class));
@@ -63,7 +62,7 @@ public class FilmRepositoryTest {
     @Test
     public void getMoviesWithDetail() {
         doAnswer(invocation -> {
-            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+            ((RemoteDataSource.LoadFilmCallback) invocation.getArguments()[0])
                     .onAllFilmReceived(movieResponses);
             return null;
         }).when(remote).getAllMovies(any(RemoteDataSource.LoadFilmCallback.class));
@@ -77,7 +76,7 @@ public class FilmRepositoryTest {
     @Test
     public void getTvsWithDetail() {
         doAnswer(invocation -> {
-            ((RemoteDataSource.LoadFilmCallback)invocation.getArguments()[0])
+            ((RemoteDataSource.LoadFilmCallback) invocation.getArguments()[0])
                     .onAllFilmReceived(tvResponses);
             return null;
         }).when(remote).getAllTvs(any(RemoteDataSource.LoadFilmCallback.class));

@@ -62,7 +62,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
 
-        void bind(FilmEntity film){
+        void bind(FilmEntity film) {
             tvTitle.setText(film.getTitle());
             tvDescription.setText(film.getDescription());
             tvDate.setText(itemView.getResources().getString(R.string.release, film.getReleaseDate()));
@@ -71,7 +71,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(imgPoster);
 
-            itemView.setOnClickListener(view ->{
+            itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(itemView.getContext(), DetailFilmActivity.class);
                 intent.putExtra(DetailFilmActivity.EXTRA_FILM, film.getFilmId());
                 itemView.getContext().startActivity(intent);

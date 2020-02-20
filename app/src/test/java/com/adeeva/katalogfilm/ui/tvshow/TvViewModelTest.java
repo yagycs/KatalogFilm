@@ -18,7 +18,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,7 +38,7 @@ public class TvViewModelTest {
     private Observer<List<FilmEntity>> observer;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         viewModel = new TvViewModel(filmRepository);
     }
 
@@ -45,7 +46,7 @@ public class TvViewModelTest {
     public void getTvs() {
         ArrayList<FilmEntity> dummyTvs = DataDummy.generateDummyTv();
         MutableLiveData<List<FilmEntity>> tvs = new MutableLiveData<>();
-       tvs.setValue(dummyTvs);
+        tvs.setValue(dummyTvs);
 
         when(filmRepository.getAllTvs()).thenReturn(tvs);
         List<FilmEntity> filmEntities = viewModel.getTvs().getValue();

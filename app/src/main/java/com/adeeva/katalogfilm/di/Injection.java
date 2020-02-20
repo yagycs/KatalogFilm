@@ -8,7 +8,7 @@ import com.adeeva.katalogfilm.utils.JsonHelper;
 
 public class Injection {
 
-    public static FilmRepository provideRepository(Context context){
+    public static FilmRepository provideRepository(Context context) {
 
         RemoteDataSource remoteDataSource = RemoteDataSource.getInstance(new JsonHelper(context));
 

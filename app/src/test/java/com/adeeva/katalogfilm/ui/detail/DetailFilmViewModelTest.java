@@ -15,9 +15,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +39,7 @@ public class DetailFilmViewModelTest {
     private Observer<FilmEntity> filmObserver;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         viewModel = new DetailFilmViewModel(filmRepository);
         viewModel.setSelectedMovie(movieId);
         viewModel.setSelectedTv(tvId);

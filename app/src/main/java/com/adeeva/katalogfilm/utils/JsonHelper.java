@@ -22,27 +22,27 @@ public class JsonHelper {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private String parsingFileToString(String fileName){
+    private String parsingFileToString(String fileName) {
         try {
             InputStream is = context.getAssets().open(fileName);
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
             is.close();
             return new String(buffer);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
             return null;
         }
     }
 
-    public List<FilmResponse> loadMovies(){
+    public List<FilmResponse> loadMovies() {
         ArrayList<FilmResponse> list = new ArrayList<>();
         try {
             String json = parsingFileToString("MovieResponses.json");
-            if (json != null){
+            if (json != null) {
                 JSONObject responseObject = new JSONObject(json);
                 JSONArray listArray = responseObject.getJSONArray("results");
-                for (int i = 0; i < listArray.length(); i++){
+                for (int i = 0; i < listArray.length(); i++) {
                     JSONObject movie = listArray.getJSONObject(i);
 
                     String id = movie.getString("id");
@@ -55,20 +55,20 @@ public class JsonHelper {
                     list.add(filmResponse);
                 }
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return list;
     }
 
-    public List<FilmResponse> loadTvs(){
+    public List<FilmResponse> loadTvs() {
         ArrayList<FilmResponse> list = new ArrayList<>();
         try {
             String json = parsingFileToString("TvShowResponses.json");
-            if (json != null){
+            if (json != null) {
                 JSONObject responseObject = new JSONObject(json);
                 JSONArray listArray = responseObject.getJSONArray("results");
-                for (int i = 0; i < listArray.length(); i++){
+                for (int i = 0; i < listArray.length(); i++) {
                     JSONObject movie = listArray.getJSONObject(i);
 
                     String id = movie.getString("id");
@@ -81,7 +81,7 @@ public class JsonHelper {
                     list.add(filmResponse);
                 }
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return list;

@@ -25,7 +25,7 @@ public class DetailFilmViewModel extends ViewModel {
         this.tvId = tvId;
     }
 
-    public LiveData<FilmEntity> getMovie(){
+    public LiveData<FilmEntity> getMovie() {
         return filmRepository.getMoviesWithDetail(movieId);
     }
 

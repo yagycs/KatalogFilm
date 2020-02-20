@@ -54,7 +54,7 @@ public class DataDummy {
         return films;
     }
 
-    public static ArrayList<FilmEntity> generateDummyTv(){
+    public static ArrayList<FilmEntity> generateDummyTv() {
 
         ArrayList<FilmEntity> tvs = new ArrayList<>();
 
@@ -101,7 +101,7 @@ public class DataDummy {
         return tvs;
     }
 
-    public static ArrayList<FilmResponse> generateRemoteDummyMovies(){
+    public static ArrayList<FilmResponse> generateRemoteDummyMovies() {
 
         ArrayList<FilmResponse> movies = new ArrayList<>();
 
@@ -148,7 +148,7 @@ public class DataDummy {
         return movies;
     }
 
-    public static ArrayList<FilmResponse> generateRemoteDummyTv(){
+    public static ArrayList<FilmResponse> generateRemoteDummyTv() {
 
         ArrayList<FilmResponse> tvs = new ArrayList<>();
 
