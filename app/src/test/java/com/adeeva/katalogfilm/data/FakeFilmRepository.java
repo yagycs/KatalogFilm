@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.adeeva.katalogfilm.data.source.FilmDataSource;
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.remote.RemoteDataSource;
 import com.adeeva.katalogfilm.data.source.remote.response.FilmResponse;
 

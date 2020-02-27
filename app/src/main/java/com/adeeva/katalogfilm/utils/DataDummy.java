@@ -1,6 +1,6 @@
 package com.adeeva.katalogfilm.utils;
 
-import com.adeeva.katalogfilm.data.FilmEntity;
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.remote.response.FilmResponse;
 
 import java.util.ArrayList;

@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.adeeva.katalogfilm.data.FilmEntity;
-import com.adeeva.katalogfilm.data.source.FilmRepository;
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
+import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.utils.DataDummy;
 
 import org.junit.Before;

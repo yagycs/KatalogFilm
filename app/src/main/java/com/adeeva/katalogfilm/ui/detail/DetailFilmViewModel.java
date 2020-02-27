@@ -3,8 +3,8 @@ package com.adeeva.katalogfilm.ui.detail;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.adeeva.katalogfilm.data.FilmEntity;
-import com.adeeva.katalogfilm.data.source.FilmRepository;
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
+import com.adeeva.katalogfilm.data.FilmRepository;
 
 public class DetailFilmViewModel extends ViewModel {
 

@@ -5,7 +5,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
 import com.adeeva.katalogfilm.R;
-import com.adeeva.katalogfilm.data.FilmEntity;
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.utils.DataDummy;
 import com.adeeva.katalogfilm.utils.EspressoIdlingResource;
 

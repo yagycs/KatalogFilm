@@ -2,6 +2,7 @@ package com.adeeva.katalogfilm.data;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.remote.RemoteDataSource;
 import com.adeeva.katalogfilm.data.source.remote.response.FilmResponse;
 import com.adeeva.katalogfilm.utils.DataDummy;

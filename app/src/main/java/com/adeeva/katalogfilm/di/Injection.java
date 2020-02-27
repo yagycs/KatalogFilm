@@ -2,7 +2,7 @@ package com.adeeva.katalogfilm.di;
 
 import android.content.Context;
 
-import com.adeeva.katalogfilm.data.source.FilmRepository;
+import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.data.source.remote.RemoteDataSource;
 import com.adeeva.katalogfilm.utils.JsonHelper;
 

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.adeeva.katalogfilm.data.source.FilmRepository;
+import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.di.Injection;
 import com.adeeva.katalogfilm.ui.detail.DetailFilmViewModel;
 import com.adeeva.katalogfilm.ui.movie.MovieViewModel;

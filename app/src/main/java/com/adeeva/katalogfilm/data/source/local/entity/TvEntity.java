@@ -1,17 +1,41 @@
-package com.adeeva.katalogfilm.data;
+package com.adeeva.katalogfilm.data.source.local.entity;
 
-public class FilmEntity {
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tventities")
+public class TvEntity {
+
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "filmId")
     private String filmId;
+
+    @ColumnInfo(name = "title")
     private String title;
+
+    @ColumnInfo(name = "description")
     private String description;
+
+    @ColumnInfo(name = "releaseDate")
     private String releaseDate;
+
+    @ColumnInfo(name = "favorited")
+    private boolean favorited = false;
+
+    @ColumnInfo(name = "imagePath")
     private String imagePath;
 
-    public FilmEntity(String filmId, String title, String description, String releaseDate, String imagePath) {
+    public TvEntity(String filmId, String title, String description, String releaseDate, Boolean favorited, String imagePath) {
         this.filmId = filmId;
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
+        if (favorited != null){
+            this.favorited = favorited;
+        }
         this.imagePath = imagePath;
     }
 
@@ -45,6 +69,14 @@ public class FilmEntity {
 
     public void setReleaseDate(String mReleaseDate) {
         this.releaseDate = mReleaseDate;
+    }
+
+    public boolean isFavorited(){
+        return favorited;
+    }
+
+    public void setFavorited(boolean mFavorited){
+        this.favorited = mFavorited;
     }
 
     public String getImagePath() {
