@@ -19,9 +19,9 @@ public interface FilmDataSource {
 
     LiveData<Resource<TvEntity>> getTvsWithDetail(String tvId);
 
-    LiveData<List<FilmEntity>> getFavoritedFilm();
+    LiveData<List<FilmEntity>> getFavoritedFilms();
 
-    LiveData<List<TvEntity>> getFavoritedTv();
+    LiveData<List<TvEntity>> getFavoritedTvs();
 
     void setFilmFavorite(FilmEntity film, boolean state); //berfungsi untuk menambahkan film ke daftar favorite
 

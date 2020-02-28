@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
+import com.adeeva.katalogfilm.vo.Resource;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class MovieViewModel extends ViewModel {
         this.filmRepository = mFilmRepository;
     }
 
-    public LiveData<List<FilmEntity>> getMovies() {
+    public LiveData<Resource<List<FilmEntity>>> getMovies() {
         return filmRepository.getAllMovies();
     }
 }
