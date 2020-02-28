@@ -1,6 +1,7 @@
 package com.adeeva.katalogfilm.data.source.local.room;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -12,6 +13,7 @@ import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 
 import java.util.List;
 
+@Dao
 public interface FilmDao {
 
     @Query("SELECT * FROM filmentities")

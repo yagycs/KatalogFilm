@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.vo.Resource;
 
@@ -27,11 +27,11 @@ public class DetailFilmViewModel extends ViewModel {
     public LiveData<Resource<TvEntity>> tvDetail = Transformations.switchMap(tvId,
             mTvId -> filmRepository.getTvsWithDetail(mTvId));
 
-    public String getMovie(){
+    public String getMovieId() {
         return movieId.getValue();
     }
 
-    public String getTv(){
+    public String getTvId() {
         return tvId.getValue();
     }
 
@@ -43,7 +43,25 @@ public class DetailFilmViewModel extends ViewModel {
         this.tvId.setValue(tvId);
     }
 
-    void setFavorite(){
+    void setFavorite() {
+        Resource<FilmEntity> movieResource = filmDetail.getValue();
+        Resource<TvEntity> tvResource = tvDetail.getValue();
 
+        if (movieResource != null) {
+            FilmEntity filmWithDetail = movieResource.data;
+
+            if (filmWithDetail != null) {
+                final boolean newState = !filmWithDetail.isFavorited();
+                filmRepository.setFilmFavorite(filmWithDetail, newState);
+            }
+
+        } else if (tvResource != null) {
+            TvEntity tvWithDetail = tvResource.data;
+
+            if (tvWithDetail != null) {
+                final boolean newState = !tvWithDetail.isFavorited();
+                filmRepository.setTvFavorite(tvWithDetail, newState);
+            }
+        }
     }
 }

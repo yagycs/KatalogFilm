@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.adeeva.katalogfilm.R;
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
+import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.ui.detail.DetailFilmActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,9 +22,9 @@ import java.util.List;
 
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder> {
 
-    private List<FilmEntity> listFilms = new ArrayList<>();
+    private List<TvEntity> listFilms = new ArrayList<>();
 
-    void setFilms(List<FilmEntity> listFilms) {
+    void setFilms(List<TvEntity> listFilms) {
         if (listFilms == null) return;
         this.listFilms.clear();
         this.listFilms.addAll(listFilms);
@@ -38,7 +39,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
     @Override
     public void onBindViewHolder(@NonNull TvShowViewHolder holder, int position) {
-        FilmEntity film = listFilms.get(position);
+        TvEntity film = listFilms.get(position);
         holder.bind(film);
     }
 
@@ -62,7 +63,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
 
-        void bind(FilmEntity film) {
+        void bind(TvEntity film) {
             tvTitle.setText(film.getTitle());
             tvDescription.setText(film.getDescription());
             tvDate.setText(itemView.getResources().getString(R.string.release, film.getReleaseDate()));

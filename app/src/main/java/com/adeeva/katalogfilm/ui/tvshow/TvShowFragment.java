@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,11 +55,25 @@ public class TvShowFragment extends Fragment {
             TvViewModel viewModel = new ViewModelProvider(this, factory).get(TvViewModel.class);
 
             TvShowAdapter tvShowAdapter = new TvShowAdapter();
-            progressBar.setVisibility(View.VISIBLE);
             viewModel.getTvs().observe(this, tvs -> {
-                progressBar.setVisibility(View.GONE);
-                tvShowAdapter.setFilms(tvs);
-                tvShowAdapter.notifyDataSetChanged();
+                if (tvs != null){
+                    switch (tvs.status){
+                        case LOADING:
+                            progressBar.setVisibility(View.VISIBLE);
+                            break;
+
+                        case SUCCESS:
+                            progressBar.setVisibility(View.GONE);
+                            tvShowAdapter.setFilms(tvs.data);
+                            tvShowAdapter.notifyDataSetChanged();
+                            break;
+
+                        case ERROR:
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
             });
 
             rvTv.setLayoutManager(new LinearLayoutManager(getContext()));
