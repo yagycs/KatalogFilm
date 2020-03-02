@@ -39,6 +39,9 @@ public class FilmEntity {
         this.imagePath = imagePath;
     }
 
+    public FilmEntity() {
+    }
+
     public String getFilmId() {
         return filmId;
     }

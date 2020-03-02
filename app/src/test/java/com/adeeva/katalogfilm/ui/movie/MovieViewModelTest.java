@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.utils.DataDummy;
+import com.adeeva.katalogfilm.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,7 +36,7 @@ public class MovieViewModelTest {
     private FilmRepository filmRepository;
 
     @Mock
-    private Observer<List<FilmEntity>> observer;
+    private Observer<Resource<List<FilmEntity>>> observer;
 
     @Before
     public void setUp() {
@@ -44,12 +45,12 @@ public class MovieViewModelTest {
 
     @Test
     public void getMovies() {
-        ArrayList<FilmEntity> dummyMovies = DataDummy.generateDummyMovie();
-        MutableLiveData<List<FilmEntity>> movies = new MutableLiveData<>();
+        Resource<List<FilmEntity>> dummyMovies = Resource.success(DataDummy.generateDummyMovie());
+        MutableLiveData<Resource<List<FilmEntity>>> movies = new MutableLiveData<>();
         movies.setValue(dummyMovies);
 
         when(filmRepository.getAllMovies()).thenReturn(movies);
-        List<FilmEntity> filmEntities = viewModel.getMovies().getValue();
+        List<FilmEntity> filmEntities = viewModel.getMovies().getValue().data;
         verify(filmRepository).getAllMovies();
         assertNotNull(filmEntities);
         assertEquals(5, filmEntities.size());

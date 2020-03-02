@@ -205,4 +205,17 @@ public class DataDummy {
 
         return tvs;
     }
+
+    public static FilmEntity generateDummyMovieWithDetail(boolean favorited){
+        FilmEntity movieWithDetail = new FilmEntity();
+        movieWithDetail.setFavorited(favorited);
+        return movieWithDetail;
+    }
+
+    public static TvEntity generateDummyTvWithDetail(boolean favorited){
+        TvEntity tvWithDetail = new TvEntity();
+        tvWithDetail.setFavorited(favorited);
+        return tvWithDetail;
+    }
+
 }

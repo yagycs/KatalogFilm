@@ -6,7 +6,9 @@ import androidx.lifecycle.Observer;
 
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
+import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.utils.DataDummy;
+import com.adeeva.katalogfilm.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,7 +37,7 @@ public class TvViewModelTest {
     private FilmRepository filmRepository;
 
     @Mock
-    private Observer<List<FilmEntity>> observer;
+    private Observer<Resource<List<TvEntity>>> observer;
 
     @Before
     public void setUp() {
@@ -44,12 +46,12 @@ public class TvViewModelTest {
 
     @Test
     public void getTvs() {
-        ArrayList<FilmEntity> dummyTvs = DataDummy.generateDummyTv();
-        MutableLiveData<List<FilmEntity>> tvs = new MutableLiveData<>();
+        Resource<List<TvEntity>> dummyTvs = Resource.success(DataDummy.generateDummyTv());
+        MutableLiveData<Resource<List<TvEntity>>> tvs = new MutableLiveData<>();
         tvs.setValue(dummyTvs);
 
         when(filmRepository.getAllTvs()).thenReturn(tvs);
-        List<FilmEntity> filmEntities = viewModel.getTvs().getValue();
+        List<TvEntity> filmEntities = viewModel.getTvs().getValue().data;
         verify(filmRepository).getAllTvs();
         assertNotNull(filmEntities);
         assertEquals(5, filmEntities.size());

@@ -6,7 +6,9 @@ import androidx.lifecycle.Observer;
 
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
+import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.utils.DataDummy;
+import com.adeeva.katalogfilm.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,7 +27,7 @@ public class DetailFilmViewModelTest {
 
     private DetailFilmViewModel viewModel;
     private FilmEntity dummyMovie = DataDummy.generateDummyMovie().get(0);
-    private FilmEntity dummyTv = DataDummy.generateDummyTv().get(0);
+    private TvEntity dummyTv = DataDummy.generateDummyTv().get(0);
     private String movieId = dummyMovie.getFilmId();
     private String tvId = dummyTv.getFilmId();
 
@@ -36,7 +38,10 @@ public class DetailFilmViewModelTest {
     private FilmRepository filmRepository;
 
     @Mock
-    private Observer<FilmEntity> filmObserver;
+    private Observer<Resource<FilmEntity>> filmObserver;
+
+    @Mock
+    private Observer<Resource<TvEntity>> tvObserver;
 
     @Before
     public void setUp() {
@@ -46,40 +51,28 @@ public class DetailFilmViewModelTest {
     }
 
     @Test
-    public void getMovie() {
-        MutableLiveData<FilmEntity> movie = new MutableLiveData<>();
-        movie.setValue(dummyMovie);
+    public void getMovieWithDetail(){
+        Resource<FilmEntity> dummyMovieWithDetail = Resource.success(DataDummy.generateDummyMovieWithDetail(false));
+        MutableLiveData<Resource<FilmEntity>> movie = new MutableLiveData<>();
+        movie.setValue(dummyMovieWithDetail);
 
         when(filmRepository.getMoviesWithDetail(movieId)).thenReturn(movie);
-        FilmEntity filmEntity = viewModel.getMovie().getValue();
-        verify(filmRepository).getMoviesWithDetail(movieId);
-        assertNotNull(filmEntity);
-        assertEquals(dummyMovie.getFilmId(), filmEntity.getFilmId());
-        assertEquals(dummyMovie.getDescription(), filmEntity.getDescription());
-        assertEquals(dummyMovie.getReleaseDate(), filmEntity.getReleaseDate());
-        assertEquals(dummyMovie.getImagePath(), filmEntity.getImagePath());
-        assertEquals(dummyMovie.getTitle(), filmEntity.getTitle());
 
-        viewModel.getMovie().observeForever(filmObserver);
-        verify(filmObserver).onChanged(dummyMovie);
+        viewModel.filmDetail.observeForever(filmObserver);
+
+        verify(filmObserver).onChanged(dummyMovieWithDetail);
     }
 
     @Test
-    public void getTv() {
-        MutableLiveData<FilmEntity> tv = new MutableLiveData<>();
-        tv.setValue(dummyTv);
+    public void getTvWithDetail(){
+        Resource<TvEntity> dummyTvWithDetail = Resource.success(DataDummy.generateDummyTvWithDetail(false));
+        MutableLiveData<Resource<TvEntity>> tv = new MutableLiveData<>();
+        tv.setValue(dummyTvWithDetail);
 
         when(filmRepository.getTvsWithDetail(tvId)).thenReturn(tv);
-        FilmEntity filmEntity = viewModel.getTv().getValue();
-        verify(filmRepository).getTvsWithDetail(tvId);
-        assertNotNull(filmEntity);
-        assertEquals(dummyTv.getFilmId(), filmEntity.getFilmId());
-        assertEquals(dummyTv.getDescription(), filmEntity.getDescription());
-        assertEquals(dummyTv.getReleaseDate(), filmEntity.getReleaseDate());
-        assertEquals(dummyTv.getImagePath(), filmEntity.getImagePath());
-        assertEquals(dummyTv.getTitle(), filmEntity.getTitle());
 
-        viewModel.getTv().observeForever(filmObserver);
-        verify(filmObserver).onChanged(dummyTv);
+        viewModel.tvDetail.observeForever(tvObserver);
+
+        verify(tvObserver).onChanged(dummyTvWithDetail);
     }
 }

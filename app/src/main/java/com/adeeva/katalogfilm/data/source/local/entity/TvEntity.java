@@ -39,6 +39,9 @@ public class TvEntity {
         this.imagePath = imagePath;
     }
 
+    public TvEntity() {
+    }
+
     public String getFilmId() {
         return filmId;
     }
