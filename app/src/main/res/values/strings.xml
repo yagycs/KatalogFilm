@@ -6,7 +6,7 @@
     <string name="movies">Movies</string>
     <string name="tvs">Tv Shows</string>
     <string name="favorite_movies">Favorite Movies</string>
-    <string name="favorite_tvs">Favorite Tv Shows</string>
+    <string name="favorite_tvs">Favorite Tv</string>
     <string name="release">Release %s</string>
     <string name="title_activity_detail_film">Detail Film</string>
 
