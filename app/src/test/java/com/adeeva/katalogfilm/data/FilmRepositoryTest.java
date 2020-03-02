@@ -68,6 +68,30 @@ public class FilmRepositoryTest {
     }
 
     @Test
+    public void getFavoritedMovies(){
+        MutableLiveData<List<FilmEntity>> dummyMovies = new MutableLiveData<>();
+        dummyMovies.setValue(DataDummy.generateDummyMovie());
+        when(local.getFavoritedFilms()).thenReturn(dummyMovies);
+
+        List<FilmEntity> movieEntities = LiveDataTestUtil.getValue(filmRepository.getFavoritedFilms());
+        verify(local).getFavoritedFilms();
+        assertNotNull(movieEntities);
+        assertEquals(movieResponses.size(), movieEntities.size());
+    }
+
+    @Test
+    public void getFavoritedTvs(){
+        MutableLiveData<List<TvEntity>> dummyTvs = new MutableLiveData<>();
+        dummyTvs.setValue(DataDummy.generateDummyTv());
+        when(local.getFavoritedTvs()).thenReturn(dummyTvs);
+
+        List<TvEntity> tvEntities = LiveDataTestUtil.getValue(filmRepository.getFavoritedTvs());
+        verify(local).getFavoritedTvs();
+        assertNotNull(tvEntities);
+        assertEquals(tvResponses.size(), tvEntities.size());
+    }
+
+    @Test
     public void getMoviesWithDetail() {
         MutableLiveData<FilmEntity> dummyMovies = new MutableLiveData<>();
         dummyMovies.setValue(DataDummy.generateDummyMovieWithDetail(false));
@@ -91,29 +115,5 @@ public class FilmRepositoryTest {
         assertNotNull(tvEntities.data);
         assertNotNull(tvEntities.data.getTitle());
         assertEquals(tvResponses.get(0).getTitle(), tvEntities.data.getTitle());
-    }
-
-    @Test
-    public void getFavoritedMovies(){
-        MutableLiveData<List<FilmEntity>> dummyMovies = new MutableLiveData<>();
-        dummyMovies.setValue(DataDummy.generateDummyMovie());
-        when(local.getFavoritedFilms()).thenReturn(dummyMovies);
-
-        List<FilmEntity> movieEntities = LiveDataTestUtil.getValue(filmRepository.getFavoritedFilms());
-        verify(local).getFavoritedFilms();
-        assertNotNull(movieEntities);
-        assertEquals(movieResponses.size(), movieEntities.size());
-    }
-
-    @Test
-    public void getFavoritedTvs(){
-        MutableLiveData<List<TvEntity>> dummyTvs = new MutableLiveData<>();
-        dummyTvs.setValue(DataDummy.generateDummyTv());
-        when(local.getFavoritedTvs()).thenReturn(dummyTvs);
-
-        List<TvEntity> tvEntities = LiveDataTestUtil.getValue(filmRepository.getFavoritedTvs());
-        verify(local).getFavoritedTvs();
-        assertNotNull(tvEntities);
-        assertEquals(tvResponses.size(), tvEntities.size());
     }
 }
