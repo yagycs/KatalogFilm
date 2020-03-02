@@ -2,6 +2,7 @@ package com.adeeva.katalogfilm.ui.detail;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.adeeva.katalogfilm.R;
@@ -135,4 +137,76 @@ public class DetailFilmActivity extends AppCompatActivity {
                 .into(imagePoster);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        this.menu = menu;
+
+        viewModel.filmDetail.observe(this, filmWithDetail -> {
+            if (filmWithDetail != null){
+                switch (filmWithDetail.status){
+                    case LOADING:
+                        progressBar.setVisibility(View.VISIBLE);
+                        break;
+
+                    case SUCCESS:
+                        if (filmWithDetail.data != null){
+                            progressBar.setVisibility(View.GONE);
+                            boolean state = filmWithDetail.data.isFavorited();
+                            setFavoriteState(state);
+                        }
+                        break;
+
+                    case ERROR:
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
+        viewModel.tvDetail.observe(this, tvWithDetail -> {
+            if (tvWithDetail != null){
+                switch (tvWithDetail.status){
+                    case LOADING:
+                        progressBar.setVisibility(View.VISIBLE);
+                        break;
+
+                    case SUCCESS:
+                        if (tvWithDetail.data != null){
+                            progressBar.setVisibility(View.GONE);
+                            boolean state = tvWithDetail.data.isFavorited();
+                            setFavoriteState(state);
+                        }
+                        break;
+
+                    case ERROR:
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == R.id.action_bookmark){
+            viewModel.setFavorite();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setFavoriteState(boolean state){
+        if (menu == null) return;
+        MenuItem menuItem = menu.findItem(R.id.action_bookmark);
+        if (state){
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_bookmark_white));
+        }else {
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_bookmarked_white));
+        }
+    }
 }

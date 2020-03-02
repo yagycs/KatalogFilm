@@ -10,9 +10,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.adeeva.katalogfilm.R;
-import com.adeeva.katalogfilm.ui.movie.FavoriteMovieFragment;
+import com.adeeva.katalogfilm.ui.favoritemovie.FavoriteMovieFragment;
 import com.adeeva.katalogfilm.ui.movie.MovieFragment;
-import com.adeeva.katalogfilm.ui.tvshow.FavoriteTvFragment;
+import com.adeeva.katalogfilm.ui.favoritetv.FavoriteTvFragment;
 import com.adeeva.katalogfilm.ui.tvshow.TvShowFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {

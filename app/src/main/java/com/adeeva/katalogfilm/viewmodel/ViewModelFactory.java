@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.di.Injection;
 import com.adeeva.katalogfilm.ui.detail.DetailFilmViewModel;
+import com.adeeva.katalogfilm.ui.favoritemovie.FavoriteMovieViewModel;
+import com.adeeva.katalogfilm.ui.favoritetv.FavoriteTvViewModel;
 import com.adeeva.katalogfilm.ui.movie.MovieViewModel;
 import com.adeeva.katalogfilm.ui.tvshow.TvViewModel;
 
@@ -44,6 +46,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new TvViewModel(mFilmRepository);
         } else if (modelClass.isAssignableFrom(DetailFilmViewModel.class)) {
             return (T) new DetailFilmViewModel(mFilmRepository);
+        } else if (modelClass.isAssignableFrom(FavoriteMovieViewModel.class)) {
+            return (T) new FavoriteMovieViewModel(mFilmRepository);
+        } else if (modelClass.isAssignableFrom(FavoriteTvViewModel.class)) {
+            return (T) new FavoriteTvViewModel(mFilmRepository);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
