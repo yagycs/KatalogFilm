@@ -117,7 +117,7 @@ public class DetailFilmActivity extends AppCompatActivity {
         //progressBar.setVisibility(View.GONE);
         textTitle.setText(filmEntity.getTitle());
         textDesc.setText(filmEntity.getDescription());
-        textDate.setText(getResources().getString(R.string.release, filmEntity.getReleaseDate()));
+        textDate.setText(String.format("Release %s", filmEntity.getReleaseDate()));
 
         Glide.with(this)
                 .load(filmEntity.getImagePath())
@@ -129,7 +129,7 @@ public class DetailFilmActivity extends AppCompatActivity {
         //progressBar.setVisibility(View.GONE);
         textTitle.setText(filmEntity.getTitle());
         textDesc.setText(filmEntity.getDescription());
-        textDate.setText(getResources().getString(R.string.release, filmEntity.getReleaseDate()));
+        textDate.setText(String.format("Release %s", filmEntity.getReleaseDate()));
 
         Glide.with(this)
                 .load(filmEntity.getImagePath())

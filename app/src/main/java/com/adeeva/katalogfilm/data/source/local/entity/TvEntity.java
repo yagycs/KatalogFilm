@@ -40,6 +40,7 @@ public class TvEntity {
         this.imagePath = imagePath;
     }
 
+    @Ignore
     public TvEntity() {
     }
 

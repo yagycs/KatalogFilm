@@ -40,6 +40,7 @@ public class FilmEntity {
         this.imagePath = imagePath;
     }
 
+    @Ignore
     public FilmEntity() {
     }
 
