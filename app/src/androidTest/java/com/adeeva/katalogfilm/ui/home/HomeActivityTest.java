@@ -82,4 +82,12 @@ public class HomeActivityTest {
         //onView(withId(R.id.rv_favorite)).perform(RecyclerViewActions.scrollToPosition(dummyMovie.size()));
     }
 
+    @Test
+    public void loadTv() {
+        onView(withText("Tv Shows")).perform(click());
+        onView(withId(R.id.rv_tv)).check(matches(isDisplayed()));
+        onView(withId(R.id.rv_tv)).perform(RecyclerViewActions.scrollToPosition(dummyTv.size()));
+    }
+
+
 }

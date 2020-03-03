@@ -94,27 +94,49 @@ public class FilmRepositoryTest {
 
     @Test
     public void getMoviesWithDetail() {
-        MutableLiveData<FilmEntity> dummyMovies = new MutableLiveData<>();
-        dummyMovies.setValue(DataDummy.generateDummyMovieWithDetail(false));
-        when(local.getFilmWithDetail(movieId)).thenReturn(dummyMovies);
+        MutableLiveData<List<FilmEntity>> dummyMovies = new MutableLiveData<>();
+        dummyMovies.setValue(DataDummy.generateDummyMovie());
+        when(local.getAllFilms()).thenReturn(dummyMovies);
 
-        Resource<FilmEntity> movieEntities = LiveDataTestUtil.getValue(filmRepository.getMoviesWithDetail(movieId));
-        verify(local).getFilmWithDetail(movieId);
+        Resource<List<FilmEntity>> movieEntities = LiveDataTestUtil.getValue(filmRepository.getAllMovies());
+        verify(local).getAllFilms();
         assertNotNull(movieEntities.data);
-        assertNotNull(movieEntities.data.getTitle());
-        assertEquals(movieResponses.get(0).getTitle(), movieEntities.data.getTitle());
+        assertNotNull(movieEntities.data.get(0).getTitle());
+        assertEquals(movieResponses.get(0).getTitle(), movieEntities.data.get(0).getTitle());
+
+
+        //MutableLiveData<FilmEntity> dummyMovies = new MutableLiveData<>();
+        //dummyMovies.setValue(DataDummy.generateDummyMovieWithDetail(false));
+        //when(local.getFilmWithDetail(movieId)).thenReturn(dummyMovies);
+
+        //Resource<FilmEntity> movieEntities = LiveDataTestUtil.getValue(filmRepository.getMoviesWithDetail(movieId));
+        //verify(local).getFilmWithDetail(movieId);
+        //assertNotNull(movieEntities.data);
+        //assertNotNull(movieEntities.data.getTitle());
+        //assertEquals(movieResponses.get(0).getTitle(), movieEntities.data.getTitle());
     }
 
     @Test
     public void getTvsWithDetail() {
-        MutableLiveData<TvEntity> dummyTvs = new MutableLiveData<>();
-        dummyTvs.setValue(DataDummy.generateDummyTvWithDetail(false));
-        when(local.getTvWithDetail(tvId)).thenReturn(dummyTvs);
+        MutableLiveData<List<TvEntity>> dummyTvs = new MutableLiveData<>();
+        dummyTvs.setValue(DataDummy.generateDummyTv());
+        when(local.getAllTvs()).thenReturn(dummyTvs);
 
-        Resource<TvEntity> tvEntities = LiveDataTestUtil.getValue(filmRepository.getTvsWithDetail(tvId));
-        verify(local).getTvWithDetail(tvId);
+        Resource<List<TvEntity>> tvEntities = LiveDataTestUtil.getValue(filmRepository.getAllTvs());
+        verify(local).getAllTvs();
         assertNotNull(tvEntities.data);
-        assertNotNull(tvEntities.data.getTitle());
-        assertEquals(tvResponses.get(0).getTitle(), tvEntities.data.getTitle());
+        assertNotNull(tvEntities.data.get(0).getTitle());
+        assertEquals(tvResponses.get(0).getTitle(), tvEntities.data.get(0).getTitle());
+
+
+        //MutableLiveData<TvEntity> dummyTvs = new MutableLiveData<>();
+        //dummyTvs.setValue(DataDummy.generateDummyTvWithDetail(false));
+        //when(local.getTvWithDetail(tvId)).thenReturn(dummyTvs);
+
+        //Resource<TvEntity> tvEntities = LiveDataTestUtil.getValue(filmRepository.getTvsWithDetail(tvId));
+        //verify(local).getTvWithDetail(tvId);
+        //assertNotNull(tvEntities.data);
+        //assertNotNull(tvEntities.data.getTitle());
+        //assertEquals(tvResponses.get(0).getTitle(), tvEntities.data.getTitle());
     }
 }
