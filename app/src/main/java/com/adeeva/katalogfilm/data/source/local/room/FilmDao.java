@@ -33,8 +33,8 @@ public interface FilmDao {
     LiveData<FilmEntity> getFilmWithDetail(String filmId);
 
     @Transaction
-    @Query("SELECT * FROM tventities WHERE filmId = :filmId")
-    LiveData<TvEntity> getTvWithDetail(String filmId);
+    @Query("SELECT * FROM tventities WHERE filmId = :tvId")
+    LiveData<TvEntity> getTvWithDetail(String tvId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertFilms(List<FilmEntity> films);

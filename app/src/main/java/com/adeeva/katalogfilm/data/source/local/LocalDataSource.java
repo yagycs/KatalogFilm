@@ -45,8 +45,8 @@ public class LocalDataSource {
         return mFilmDao.getFilmWithDetail(filmId);
     }
 
-    public LiveData<TvEntity> getTvWithDetail(final String filmId){
-        return mFilmDao.getTvWithDetail(filmId);
+    public LiveData<TvEntity> getTvWithDetail(final String tvId){
+        return mFilmDao.getTvWithDetail(tvId);
     }
 
     public void insertFilms(List<FilmEntity> films){
