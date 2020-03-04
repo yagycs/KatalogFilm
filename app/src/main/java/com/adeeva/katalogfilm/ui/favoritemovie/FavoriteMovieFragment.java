@@ -102,7 +102,7 @@ public class FavoriteMovieFragment extends Fragment implements FavoriteMovieFrag
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            if (getView() != null){
+            if (getView() != null) {
                 // Sebelum melakukan penghapusan, film harus mendapatkan posisi dari item yang di swipe
                 int swipedPosition = viewHolder.getAdapterPosition();
 

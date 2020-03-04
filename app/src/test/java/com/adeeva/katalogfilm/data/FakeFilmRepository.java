@@ -2,7 +2,6 @@ package com.adeeva.katalogfilm.data;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
@@ -42,7 +41,7 @@ public class FakeFilmRepository implements FilmDataSource {
                         .setInitialLoadSizeHint(4)
                         .setPageSize(4)
                         .build();
-                return new LivePagedListBuilder<>(localDataSource.getAllFilms(),config).build();
+                return new LivePagedListBuilder<>(localDataSource.getAllFilms(), config).build();
                 // untuk membaca getAllFilms dari LocalDataSource kemudian akan diteruskan ke method shouldFetch di bawah ini
             }
 
@@ -90,7 +89,7 @@ public class FakeFilmRepository implements FilmDataSource {
                         .setInitialLoadSizeHint(4)
                         .setPageSize(4)
                         .build();
-                return new LivePagedListBuilder<>(localDataSource.getAllTvs(),config).build();
+                return new LivePagedListBuilder<>(localDataSource.getAllTvs(), config).build();
                 // untuk membaca getAllTvs dari LocalDataSource kemudian akan diteruskan ke method shouldFetch di bawah ini
             }
 
@@ -135,7 +134,7 @@ public class FakeFilmRepository implements FilmDataSource {
                 .setInitialLoadSizeHint(4)
                 .setPageSize(4)
                 .build();
-        return new LivePagedListBuilder<>(localDataSource.getFavoritedFilms(),config).build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedFilms(), config).build();
     }
 
     @Override
@@ -145,7 +144,7 @@ public class FakeFilmRepository implements FilmDataSource {
                 .setInitialLoadSizeHint(4)
                 .setPageSize(4)
                 .build();
-        return new LivePagedListBuilder<>(localDataSource.getFavoritedTvs(),config).build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedTvs(), config).build();
     }
 
     @Override

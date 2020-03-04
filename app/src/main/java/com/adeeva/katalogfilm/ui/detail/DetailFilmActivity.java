@@ -87,14 +87,14 @@ public class DetailFilmActivity extends AppCompatActivity {
                 viewModel.setSelectedTv(tvId);
 
                 viewModel.tvDetail.observe(this, tvWithDetail -> {
-                    if (tvWithDetail != null){
-                        switch (tvWithDetail.status){
+                    if (tvWithDetail != null) {
+                        switch (tvWithDetail.status) {
                             case LOADING:
                                 progressBar.setVisibility(View.VISIBLE);
                                 break;
 
                             case SUCCESS:
-                                if (tvWithDetail.data != null){
+                                if (tvWithDetail.data != null) {
                                     progressBar.setVisibility(View.GONE);
                                     populateTv(tvWithDetail.data);
                                 }
@@ -138,19 +138,19 @@ public class DetailFilmActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
         this.menu = menu;
 
         viewModel.filmDetail.observe(this, filmWithDetail -> {
-            if (filmWithDetail != null){
-                switch (filmWithDetail.status){
+            if (filmWithDetail != null) {
+                switch (filmWithDetail.status) {
                     case LOADING:
                         progressBar.setVisibility(View.VISIBLE);
                         break;
 
                     case SUCCESS:
-                        if (filmWithDetail.data != null){
+                        if (filmWithDetail.data != null) {
                             progressBar.setVisibility(View.GONE);
                             boolean state = filmWithDetail.data.isFavorited();
                             setFavoriteState(state);
@@ -166,14 +166,14 @@ public class DetailFilmActivity extends AppCompatActivity {
         });
 
         viewModel.tvDetail.observe(this, tvWithDetail -> {
-            if (tvWithDetail != null){
-                switch (tvWithDetail.status){
+            if (tvWithDetail != null) {
+                switch (tvWithDetail.status) {
                     case LOADING:
                         progressBar.setVisibility(View.VISIBLE);
                         break;
 
                     case SUCCESS:
-                        if (tvWithDetail.data != null){
+                        if (tvWithDetail.data != null) {
                             progressBar.setVisibility(View.GONE);
                             boolean state = tvWithDetail.data.isFavorited();
                             setFavoriteState(state);
@@ -192,20 +192,20 @@ public class DetailFilmActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if (item.getItemId() == R.id.action_bookmark){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_bookmark) {
             viewModel.setFavorite();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void setFavoriteState(boolean state){
+    private void setFavoriteState(boolean state) {
         if (menu == null) return;
         MenuItem menuItem = menu.findItem(R.id.action_bookmark);
-        if (state){
+        if (state) {
             menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_bookmark_white));
-        }else {
+        } else {
             menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_bookmarked_white));
         }
     }

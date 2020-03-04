@@ -18,19 +18,19 @@ import java.util.List;
 public interface FilmDao {
 
     @Query("SELECT * FROM filmentities")
-    //LiveData<List<FilmEntity>> getFilms();
+        //LiveData<List<FilmEntity>> getFilms();
     DataSource.Factory<Integer, FilmEntity> getFilms();
 
     @Query("SELECT * FROM tventities")
-    //LiveData<List<TvEntity>> getTvs();
+        //LiveData<List<TvEntity>> getTvs();
     DataSource.Factory<Integer, TvEntity> getTvs();
 
     @Query("SELECT * FROM filmentities where favorited = 1")
-    //LiveData<List<FilmEntity>> getFavoritedFilm();
+        //LiveData<List<FilmEntity>> getFavoritedFilm();
     DataSource.Factory<Integer, FilmEntity> getFavoritedFilm();
 
     @Query("SELECT * FROM tventities where favorited = 1")
-    //LiveData<List<TvEntity>> getFavoritedTv();
+        //LiveData<List<TvEntity>> getFavoritedTv();
     DataSource.Factory<Integer, TvEntity> getFavoritedTv();
 
     @Transaction

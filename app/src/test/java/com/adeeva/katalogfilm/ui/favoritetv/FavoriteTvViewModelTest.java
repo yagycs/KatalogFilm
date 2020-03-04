@@ -6,10 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
 
 import com.adeeva.katalogfilm.data.FilmRepository;
-import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
-import com.adeeva.katalogfilm.ui.favoritemovie.FavoriteMovieViewModel;
-import com.adeeva.katalogfilm.utils.DataDummy;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,10 +15,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -43,7 +40,7 @@ public class FavoriteTvViewModelTest {
     private PagedList<TvEntity> pagedList;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         viewModel = new FavoriteTvViewModel(filmRepository);
     }
 

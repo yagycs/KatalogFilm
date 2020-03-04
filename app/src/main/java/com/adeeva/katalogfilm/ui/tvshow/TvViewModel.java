@@ -8,8 +8,6 @@ import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.vo.Resource;
 
-import java.util.List;
-
 public class TvViewModel extends ViewModel {
 
     private FilmRepository filmRepository;

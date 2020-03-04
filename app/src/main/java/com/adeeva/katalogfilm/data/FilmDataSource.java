@@ -7,8 +7,6 @@ import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.vo.Resource;
 
-import java.util.List;
-
 // Kelas interface untuk menghubungkan repository local dan remote
 public interface FilmDataSource {
 

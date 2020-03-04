@@ -34,7 +34,7 @@ public class TvEntity {
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
-        if (favorited != null){
+        if (favorited != null) {
             this.favorited = favorited;
         }
         this.imagePath = imagePath;
@@ -76,11 +76,11 @@ public class TvEntity {
         this.releaseDate = mReleaseDate;
     }
 
-    public boolean isFavorited(){
+    public boolean isFavorited() {
         return favorited;
     }
 
-    public void setFavorited(boolean mFavorited){
+    public void setFavorited(boolean mFavorited) {
         this.favorited = mFavorited;
     }
 

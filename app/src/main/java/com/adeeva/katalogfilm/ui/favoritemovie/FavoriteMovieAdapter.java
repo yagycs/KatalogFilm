@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.adeeva.katalogfilm.R;
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
-import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.ui.detail.DetailFilmActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -73,7 +72,7 @@ public class FavoriteMovieAdapter extends PagedListAdapter<FilmEntity, FavoriteM
     //    return listMovies.size();
     //}
 
-    public FilmEntity getSwipedData(int swipedPosition){
+    public FilmEntity getSwipedData(int swipedPosition) {
         return getItem(swipedPosition);
     }
 

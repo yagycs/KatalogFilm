@@ -56,8 +56,8 @@ public class TvShowFragment extends Fragment {
 
             TvShowAdapter tvShowAdapter = new TvShowAdapter();
             viewModel.getTvs().observe(this, tvs -> {
-                if (tvs != null){
-                    switch (tvs.status){
+                if (tvs != null) {
+                    switch (tvs.status) {
                         case LOADING:
                             progressBar.setVisibility(View.VISIBLE);
                             break;

@@ -30,7 +30,7 @@ public class LocalDataSource {
     //public LiveData<List<FilmEntity>> getAllFilms(){
     //    return mFilmDao.getFilms();
     //}
-    public DataSource.Factory<Integer, FilmEntity> getAllFilms(){
+    public DataSource.Factory<Integer, FilmEntity> getAllFilms() {
         return mFilmDao.getFilms();
     }
 

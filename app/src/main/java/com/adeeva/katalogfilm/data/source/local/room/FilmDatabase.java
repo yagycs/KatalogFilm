@@ -19,10 +19,10 @@ public abstract class FilmDatabase extends RoomDatabase {
 
     private static volatile FilmDatabase INSTANCE;
 
-    public static FilmDatabase getInstance(Context context){
-        if (INSTANCE == null){
-            synchronized (FilmDatabase.class){
-                if (INSTANCE == null){
+    public static FilmDatabase getInstance(Context context) {
+        if (INSTANCE == null) {
+            synchronized (FilmDatabase.class) {
+                if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FilmDatabase.class, "Films.db")
                             .build();

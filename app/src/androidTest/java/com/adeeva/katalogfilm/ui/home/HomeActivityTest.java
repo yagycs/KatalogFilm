@@ -66,7 +66,7 @@ public class HomeActivityTest {
 
     @Test
     public void loadFavoriteMovie() {
-        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.action_bookmark)).perform(click());
         onView(isRoot()).perform(ViewActions.pressBack());
         onView(withText("Favorite Movies")).perform(click());

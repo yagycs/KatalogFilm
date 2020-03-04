@@ -2,6 +2,10 @@ package com.adeeva.katalogfilm.ui.favoritetv;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,16 +16,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.adeeva.katalogfilm.R;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
-import com.adeeva.katalogfilm.ui.favoritemovie.FavoriteMovieAdapter;
-import com.adeeva.katalogfilm.ui.favoritemovie.FavoriteMovieViewModel;
 import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -48,7 +44,7 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         rvFavorite = view.findViewById(R.id.rv_favorite);
@@ -57,10 +53,10 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity() != null){
+        if (getActivity() != null) {
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
             viewModel = new ViewModelProvider(this, factory).get(FavoriteTvViewModel.class);
 
@@ -80,7 +76,7 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
 
     @Override
     public void onShareClick(TvEntity tv) {
-        if (getActivity() != null){
+        if (getActivity() != null) {
             String mimeType = "text/plain";
             ShareCompat.IntentBuilder
                     .from(getActivity())
@@ -104,7 +100,7 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            if (getView() != null){
+            if (getView() != null) {
                 int swipedPosition = viewHolder.getAdapterPosition();
                 TvEntity tvEntity = adapter.getSwipedData(swipedPosition);
                 viewModel.setFavoriteTv(tvEntity);

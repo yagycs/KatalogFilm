@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
 
-import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
-import com.adeeva.katalogfilm.utils.DataDummy;
 import com.adeeva.katalogfilm.vo.Resource;
 
 import org.junit.Before;
@@ -18,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

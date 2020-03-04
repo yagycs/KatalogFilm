@@ -1,7 +1,6 @@
 package com.adeeva.katalogfilm.data;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PagedList;
 
@@ -12,7 +11,6 @@ import com.adeeva.katalogfilm.data.source.remote.RemoteDataSource;
 import com.adeeva.katalogfilm.data.source.remote.response.FilmResponse;
 import com.adeeva.katalogfilm.utils.AppExecutors;
 import com.adeeva.katalogfilm.utils.DataDummy;
-import com.adeeva.katalogfilm.utils.LiveDataTestUtil;
 import com.adeeva.katalogfilm.utils.PagedListUtil;
 import com.adeeva.katalogfilm.vo.Resource;
 
@@ -20,13 +18,9 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -80,7 +74,7 @@ public class FilmRepositoryTest {
     }
 
     @Test
-    public void getFavoritedMovies(){
+    public void getFavoritedMovies() {
         //MutableLiveData<List<FilmEntity>> dummyMovies = new MutableLiveData<>();
         //dummyMovies.setValue(DataDummy.generateDummyMovie());
         //when(local.getFavoritedFilms()).thenReturn(dummyMovies);
@@ -96,7 +90,7 @@ public class FilmRepositoryTest {
     }
 
     @Test
-    public void getFavoritedTvs(){
+    public void getFavoritedTvs() {
         //MutableLiveData<List<TvEntity>> dummyTvs = new MutableLiveData<>();
         //dummyTvs.setValue(DataDummy.generateDummyTv());
         //when(local.getFavoritedTvs()).thenReturn(dummyTvs);

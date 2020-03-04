@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
+import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.utils.DataDummy;
 import com.adeeva.katalogfilm.vo.Resource;
@@ -17,8 +17,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,7 +49,7 @@ public class DetailFilmViewModelTest {
     }
 
     @Test
-    public void getMovieWithDetail(){
+    public void getMovieWithDetail() {
         Resource<FilmEntity> dummyMovieWithDetail = Resource.success(DataDummy.generateDummyMovieWithDetail(false));
         MutableLiveData<Resource<FilmEntity>> movie = new MutableLiveData<>();
         movie.setValue(dummyMovieWithDetail);
@@ -64,7 +62,7 @@ public class DetailFilmViewModelTest {
     }
 
     @Test
-    public void getTvWithDetail(){
+    public void getTvWithDetail() {
         Resource<TvEntity> dummyTvWithDetail = Resource.success(DataDummy.generateDummyTvWithDetail(false));
         MutableLiveData<Resource<TvEntity>> tv = new MutableLiveData<>();
         tv.setValue(dummyTvWithDetail);

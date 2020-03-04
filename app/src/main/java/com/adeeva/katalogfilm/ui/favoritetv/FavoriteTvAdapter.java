@@ -14,14 +14,10 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adeeva.katalogfilm.R;
-import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.ui.detail.DetailFilmActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FavoriteTvAdapter extends PagedListAdapter<TvEntity, FavoriteTvAdapter.TvViewHolder> {
 
@@ -76,7 +72,7 @@ public class FavoriteTvAdapter extends PagedListAdapter<TvEntity, FavoriteTvAdap
     //    return listTvs.size();
     //}
 
-    public TvEntity getSwipedData(int swipedPosition){
+    public TvEntity getSwipedData(int swipedPosition) {
         return getItem(swipedPosition);
     }
 
@@ -97,7 +93,7 @@ public class FavoriteTvAdapter extends PagedListAdapter<TvEntity, FavoriteTvAdap
             imgShare = itemView.findViewById(R.id.img_share);
         }
 
-        void bind(TvEntity tv){
+        void bind(TvEntity tv) {
             tvTitle.setText(tv.getTitle());
             tvDescription.setText(tv.getDescription());
             tvDate.setText(itemView.getResources().getString(R.string.release, tv.getReleaseDate()));

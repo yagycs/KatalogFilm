@@ -55,8 +55,8 @@ public class MovieFragment extends Fragment {
 
             MovieAdapter movieAdapter = new MovieAdapter();
             viewModel.getMovies().observe(this, movies -> {
-                if (movies != null){
-                    switch (movies.status){
+                if (movies != null) {
+                    switch (movies.status) {
                         case LOADING:
                             progressBar.setVisibility(View.VISIBLE);
                             break;
