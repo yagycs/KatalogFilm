@@ -45,7 +45,7 @@ ext {
     mockitoVersion = '2.23.4'
     espressoVersion = '3.1.0'
     dexMakerVersion = "1.2"
-    pagingVersion = '2.1.0'
+    pagingVersion = '2.1.1'
     glideVersion = '4.9.0'
     idleResourceVersion = '3.2.0'
 }

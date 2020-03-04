@@ -2,6 +2,7 @@ package com.adeeva.katalogfilm.ui.tvshow;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.PagedList;
 
 import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
@@ -17,7 +18,7 @@ public class TvViewModel extends ViewModel {
         this.filmRepository = mFilmRepository;
     }
 
-    public LiveData<Resource<List<TvEntity>>> getTvs() {
+    public LiveData<Resource<PagedList<TvEntity>>> getTvs() {
         return filmRepository.getAllTvs();
     }
 }

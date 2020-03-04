@@ -1,6 +1,7 @@
 package com.adeeva.katalogfilm.data.source.local;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
@@ -18,51 +19,64 @@ public class LocalDataSource {
         this.mFilmDao = mFilmDao;
     }
 
-    public static LocalDataSource getInstance(FilmDao filmDao){
-        if (INSTANCE == null){
+    public static LocalDataSource getInstance(FilmDao filmDao) {
+        if (INSTANCE == null) {
             INSTANCE = new LocalDataSource(filmDao);
         }
         return INSTANCE;
     }
 
-    public LiveData<List<FilmEntity>> getAllFilms(){
+
+    //public LiveData<List<FilmEntity>> getAllFilms(){
+    //    return mFilmDao.getFilms();
+    //}
+    public DataSource.Factory<Integer, FilmEntity> getAllFilms(){
         return mFilmDao.getFilms();
     }
 
-    public LiveData<List<TvEntity>> getAllTvs(){
+    //public LiveData<List<TvEntity>> getAllTvs() {
+    //    return mFilmDao.getTvs();
+    //}
+    public DataSource.Factory<Integer, TvEntity> getAllTvs() {
         return mFilmDao.getTvs();
     }
 
-    public LiveData<List<FilmEntity>> getFavoritedFilms(){
+    //public LiveData<List<FilmEntity>> getFavoritedFilms() {
+    //    return mFilmDao.getFavoritedFilm();
+    //}
+    public DataSource.Factory<Integer, FilmEntity> getFavoritedFilms() {
         return mFilmDao.getFavoritedFilm();
     }
 
-    public LiveData<List<TvEntity>> getFavoritedTvs(){
+    //public LiveData<List<TvEntity>> getFavoritedTvs() {
+    //    return mFilmDao.getFavoritedTv();
+    //}
+    public DataSource.Factory<Integer, TvEntity> getFavoritedTvs() {
         return mFilmDao.getFavoritedTv();
     }
 
-    public LiveData<FilmEntity> getFilmWithDetail(final String filmId){
+    public LiveData<FilmEntity> getFilmWithDetail(final String filmId) {
         return mFilmDao.getFilmWithDetail(filmId);
     }
 
-    public LiveData<TvEntity> getTvWithDetail(final String tvId){
+    public LiveData<TvEntity> getTvWithDetail(final String tvId) {
         return mFilmDao.getTvWithDetail(tvId);
     }
 
-    public void insertFilms(List<FilmEntity> films){
+    public void insertFilms(List<FilmEntity> films) {
         mFilmDao.insertFilms(films);
     }
 
-    public void insertTvs(List<TvEntity> tvs){
+    public void insertTvs(List<TvEntity> tvs) {
         mFilmDao.insertTvs(tvs);
     }
 
-    public void setFilmFavorited(FilmEntity film, boolean newState){
+    public void setFilmFavorited(FilmEntity film, boolean newState) {
         film.setFavorited(newState);
         mFilmDao.updateFilm(film);
     }
 
-    public void setTvFavorited(TvEntity tv, boolean newState){
+    public void setTvFavorited(TvEntity tv, boolean newState) {
         tv.setFavorited(newState);
         mFilmDao.updateTv(tv);
     }

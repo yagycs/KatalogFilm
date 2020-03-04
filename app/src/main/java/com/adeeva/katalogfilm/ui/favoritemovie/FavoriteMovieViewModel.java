@@ -2,6 +2,7 @@ package com.adeeva.katalogfilm.ui.favoritemovie;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.PagedList;
 
 import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
@@ -16,7 +17,7 @@ public class FavoriteMovieViewModel extends ViewModel {
         this.filmRepository = filmRepository;
     }
 
-    LiveData<List<FilmEntity>> getFavorites(){
+    public LiveData<PagedList<FilmEntity>> getFavorites(){
         return filmRepository.getFavoritedFilms();
     }
 }
