@@ -103,11 +103,22 @@ public class FavoriteMovieFragment extends Fragment implements FavoriteMovieFrag
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             if (getView() != null){
+                // Sebelum melakukan penghapusan, film harus mendapatkan posisi dari item yang di swipe
                 int swipedPosition = viewHolder.getAdapterPosition();
+
+                // Kemudian memanggil FilmEntity sesuai posisi ketika diswipe
                 FilmEntity filmEntity = adapter.getSwipedData(swipedPosition);
+
+                // Melakukan setBookmark untuk menghapus favorite dari list film
                 viewModel.setFavoriteMovie(filmEntity);
+
+                // Memanggil Snackbar untuk melakukan pengecekan, apakah benar melakukan penghapusan favorite
                 Snackbar snackbar = Snackbar.make(getView(), R.string.message_undo, Snackbar.LENGTH_LONG);
+
+                // Mengembalikan item yang terhapus
                 snackbar.setAction(R.string.message_ok, v -> viewModel.setFavoriteMovie(filmEntity));
+
+                // Menampilkan snackbar
                 snackbar.show();
             }
         }
