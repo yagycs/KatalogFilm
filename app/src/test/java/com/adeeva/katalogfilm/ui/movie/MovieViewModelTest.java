@@ -3,6 +3,7 @@ package com.adeeva.katalogfilm.ui.movie;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.paging.PagedList;
 
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
@@ -36,7 +37,10 @@ public class MovieViewModelTest {
     private FilmRepository filmRepository;
 
     @Mock
-    private Observer<Resource<List<FilmEntity>>> observer;
+    private Observer<Resource<PagedList<FilmEntity>>> observer;
+
+    @Mock
+    private PagedList<FilmEntity> pagedList;
 
     @Before
     public void setUp() {
@@ -45,8 +49,9 @@ public class MovieViewModelTest {
 
     @Test
     public void getMovies() {
-        Resource<List<FilmEntity>> dummyMovies = Resource.success(DataDummy.generateDummyMovie());
-        MutableLiveData<Resource<List<FilmEntity>>> movies = new MutableLiveData<>();
+        Resource<PagedList<FilmEntity>> dummyMovies = Resource.success(pagedList);
+        when(dummyMovies.data.size()).thenReturn(5);
+        MutableLiveData<Resource<PagedList<FilmEntity>>> movies = new MutableLiveData<>();
         movies.setValue(dummyMovies);
 
         when(filmRepository.getAllMovies()).thenReturn(movies);

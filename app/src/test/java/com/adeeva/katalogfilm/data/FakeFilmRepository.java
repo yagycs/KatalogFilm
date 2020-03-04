@@ -3,6 +3,8 @@ package com.adeeva.katalogfilm.data;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import com.adeeva.katalogfilm.data.source.local.LocalDataSource;
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
@@ -31,16 +33,21 @@ public class FakeFilmRepository implements FilmDataSource {
     }
 
     @Override
-    public LiveData<Resource<List<FilmEntity>>> getAllMovies() {
-        return new NetworkBoundResource<List<FilmEntity>, List<FilmResponse>>(appExecutors) {
+    public LiveData<Resource<PagedList<FilmEntity>>> getAllMovies() {
+        return new NetworkBoundResource<PagedList<FilmEntity>, List<FilmResponse>>(appExecutors) {
             @Override
-            public LiveData<List<FilmEntity>> loadFromDB() {
-                return localDataSource.getAllFilms();
+            public LiveData<PagedList<FilmEntity>> loadFromDB() {
+                PagedList.Config config = new PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build();
+                return new LivePagedListBuilder<>(localDataSource.getAllFilms(),config).build();
                 // untuk membaca getAllFilms dari LocalDataSource kemudian akan diteruskan ke method shouldFetch di bawah ini
             }
 
             @Override
-            public Boolean shouldFetch(List<FilmEntity> data) {
+            public Boolean shouldFetch(PagedList<FilmEntity> data) {
                 return (data == null) || (data.size() == 0);
                 // dilakukan pengecekan apakah ada datanya atau tidak
                 // jika balikan nilainya true maka akan memanggil fungsi berikut
@@ -74,16 +81,21 @@ public class FakeFilmRepository implements FilmDataSource {
     }
 
     @Override
-    public LiveData<Resource<List<TvEntity>>> getAllTvs() {
-        return new NetworkBoundResource<List<TvEntity>, List<FilmResponse>>(appExecutors) {
+    public LiveData<Resource<PagedList<TvEntity>>> getAllTvs() {
+        return new NetworkBoundResource<PagedList<TvEntity>, List<FilmResponse>>(appExecutors) {
             @Override
-            public LiveData<List<TvEntity>> loadFromDB() {
-                return localDataSource.getAllTvs();
+            public LiveData<PagedList<TvEntity>> loadFromDB() {
+                PagedList.Config config = new PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build();
+                return new LivePagedListBuilder<>(localDataSource.getAllTvs(),config).build();
                 // untuk membaca getAllTvs dari LocalDataSource kemudian akan diteruskan ke method shouldFetch di bawah ini
             }
 
             @Override
-            public Boolean shouldFetch(List<TvEntity> data) {
+            public Boolean shouldFetch(PagedList<TvEntity> data) {
                 return (data == null) || (data.size() == 0);
                 // dilakukan pengecekan apakah ada datanya atau tidak
                 // jika balikan nilainya true maka akan memanggil fungsi berikut
@@ -117,13 +129,23 @@ public class FakeFilmRepository implements FilmDataSource {
     }
 
     @Override
-    public LiveData<List<FilmEntity>> getFavoritedFilms() {
-        return localDataSource.getFavoritedFilms();
+    public LiveData<PagedList<FilmEntity>> getFavoritedFilms() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(4)
+                .setPageSize(4)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedFilms(),config).build();
     }
 
     @Override
-    public LiveData<List<TvEntity>> getFavoritedTvs() {
-        return localDataSource.getFavoritedTvs();
+    public LiveData<PagedList<TvEntity>> getFavoritedTvs() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(4)
+                .setPageSize(4)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedTvs(),config).build();
     }
 
     @Override

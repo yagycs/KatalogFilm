@@ -3,6 +3,7 @@ package com.adeeva.katalogfilm.ui.tvshow;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.paging.PagedList;
 
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.data.FilmRepository;
@@ -37,7 +38,10 @@ public class TvViewModelTest {
     private FilmRepository filmRepository;
 
     @Mock
-    private Observer<Resource<List<TvEntity>>> observer;
+    private Observer<Resource<PagedList<TvEntity>>> observer;
+
+    @Mock
+    private PagedList<TvEntity> pagedList;
 
     @Before
     public void setUp() {
@@ -46,8 +50,9 @@ public class TvViewModelTest {
 
     @Test
     public void getTvs() {
-        Resource<List<TvEntity>> dummyTvs = Resource.success(DataDummy.generateDummyTv());
-        MutableLiveData<Resource<List<TvEntity>>> tvs = new MutableLiveData<>();
+        Resource<PagedList<TvEntity>> dummyTvs = Resource.success(pagedList);
+        when(dummyTvs.data.size()).thenReturn(5);
+        MutableLiveData<Resource<PagedList<TvEntity>>> tvs = new MutableLiveData<>();
         tvs.setValue(dummyTvs);
 
         when(filmRepository.getAllTvs()).thenReturn(tvs);

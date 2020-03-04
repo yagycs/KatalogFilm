@@ -3,6 +3,7 @@ package com.adeeva.katalogfilm.ui.favoritetv;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.paging.PagedList;
 
 import com.adeeva.katalogfilm.data.FilmRepository;
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
@@ -36,7 +37,10 @@ public class FavoriteTvViewModelTest {
     private FilmRepository filmRepository;
 
     @Mock
-    private Observer<List<TvEntity>> observer;
+    private Observer<PagedList<TvEntity>> observer;
+
+    @Mock
+    private PagedList<TvEntity> pagedList;
 
     @Before
     public void setUp(){
@@ -45,8 +49,9 @@ public class FavoriteTvViewModelTest {
 
     @Test
     public void getFavoritesTv() {
-        ArrayList<TvEntity> dummyTvs = DataDummy.generateDummyTv();
-        MutableLiveData<List<TvEntity>> tvs = new MutableLiveData<>();
+        PagedList<TvEntity> dummyTvs = pagedList;
+        when(dummyTvs.size()).thenReturn(5);
+        MutableLiveData<PagedList<TvEntity>> tvs = new MutableLiveData<>();
         tvs.setValue(dummyTvs);
 
         when(filmRepository.getFavoritedTvs()).thenReturn(tvs);
