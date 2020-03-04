@@ -64,7 +64,7 @@ public class TvShowFragment extends Fragment {
 
                         case SUCCESS:
                             progressBar.setVisibility(View.GONE);
-                            tvShowAdapter.setFilms(tvs.data);
+                            tvShowAdapter.submitList(tvs.data);
                             tvShowAdapter.notifyDataSetChanged();
                             break;
 

@@ -2,33 +2,35 @@ package com.adeeva.katalogfilm.ui.favoritemovie;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.adeeva.katalogfilm.R;
 import com.adeeva.katalogfilm.data.source.local.entity.FilmEntity;
 import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavoriteMovieFragment extends Fragment implements FavoriteMovieFragmentCallback{
+public class FavoriteMovieFragment extends Fragment implements FavoriteMovieFragmentCallback {
 
     private RecyclerView rvFavorite;
     private ProgressBar progressBar;
 
+    private FavoriteMovieViewModel viewModel;
+    private FavoriteMovieAdapter adapter;
 
     public FavoriteMovieFragment() {
         // Required empty public constructor
@@ -43,26 +45,28 @@ public class FavoriteMovieFragment extends Fragment implements FavoriteMovieFrag
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         rvFavorite = view.findViewById(R.id.rv_favorite_movie);
         progressBar = view.findViewById(R.id.progress_bar);
+        itemTouchHelper.attachToRecyclerView(rvFavorite);
+
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity() != null){
+        if (getActivity() != null) {
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
-            FavoriteMovieViewModel viewModel = new ViewModelProvider(this, factory).get(FavoriteMovieViewModel.class);
+            viewModel = new ViewModelProvider(this, factory).get(FavoriteMovieViewModel.class);
 
-            FavoriteMovieAdapter adapter = new FavoriteMovieAdapter(this);
+            adapter = new FavoriteMovieAdapter(this);
             progressBar.setVisibility(View.VISIBLE);
             viewModel.getFavorites().observe(this, movies -> {
                 progressBar.setVisibility(View.GONE);
-                adapter.setMovie(movies);
+                adapter.submitList(movies);
                 adapter.notifyDataSetChanged();
             });
 
@@ -73,8 +77,8 @@ public class FavoriteMovieFragment extends Fragment implements FavoriteMovieFrag
     }
 
     @Override
-    public void onShareClick(FilmEntity film){
-        if (getActivity() != null){
+    public void onShareClick(FilmEntity film) {
+        if (getActivity() != null) {
             String mimeType = "text/plain";
             ShareCompat.IntentBuilder
                     .from(getActivity())
@@ -84,4 +88,28 @@ public class FavoriteMovieFragment extends Fragment implements FavoriteMovieFrag
                     .startChooser();
         }
     }
+
+    private ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            return makeMovementFlags(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return true;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            if (getView() != null){
+                int swipedPosition = viewHolder.getAdapterPosition();
+                FilmEntity filmEntity = adapter.getSwipedData(swipedPosition);
+                viewModel.setFavoriteMovie(filmEntity);
+                Snackbar snackbar = Snackbar.make(getView(), R.string.message_undo, Snackbar.LENGTH_LONG);
+                snackbar.setAction(R.string.message_ok, v -> viewModel.setFavoriteMovie(filmEntity));
+                snackbar.show();
+            }
+        }
+    });
 }

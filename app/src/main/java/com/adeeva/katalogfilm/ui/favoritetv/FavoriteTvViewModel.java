@@ -20,4 +20,9 @@ public class FavoriteTvViewModel extends ViewModel {
     public LiveData<PagedList<TvEntity>> getFavoritesTv(){
         return filmRepository.getFavoritedTvs();
     }
+
+    void setFavoriteTv(TvEntity tvEntity){
+        final boolean newState = !tvEntity.isFavorited();
+        filmRepository.setTvFavorite(tvEntity, newState);
+    }
 }

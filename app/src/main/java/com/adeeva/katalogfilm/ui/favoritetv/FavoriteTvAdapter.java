@@ -1,5 +1,6 @@
 package com.adeeva.katalogfilm.ui.favoritetv;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adeeva.katalogfilm.R;
@@ -20,20 +23,38 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteTvAdapter extends RecyclerView.Adapter<FavoriteTvAdapter.TvViewHolder> {
+public class FavoriteTvAdapter extends PagedListAdapter<TvEntity, FavoriteTvAdapter.TvViewHolder> {
 
     private final FavoriteTvFragmentCallback callback;
-    private ArrayList<TvEntity> listTvs = new ArrayList<>();
 
-    FavoriteTvAdapter(FavoriteTvFragmentCallback callback) {
-        this.callback = callback;
-    }
+    /*private ArrayList<TvEntity> listTvs = new ArrayList<>();
 
     void setTv(List<TvEntity> tvs) {
         if (tvs == null) return;
         this.listTvs.clear();
         this.listTvs.addAll(tvs);
     }
+
+     */
+
+    FavoriteTvAdapter(FavoriteTvFragmentCallback callback) {
+        super(DIFF_CALLBACK);
+        this.callback = callback;
+    }
+
+    private static DiffUtil.ItemCallback<TvEntity> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<TvEntity>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull TvEntity oldItem, @NonNull TvEntity newItem) {
+                    return oldItem.getFilmId().equals(newItem.getFilmId());
+                }
+
+                @SuppressLint("DiffUtilEquals")
+                @Override
+                public boolean areContentsTheSame(@NonNull TvEntity oldItem, @NonNull TvEntity newItem) {
+                    return oldItem.equals(newItem);
+                }
+            };
 
     @NonNull
     @Override
@@ -44,13 +65,19 @@ public class FavoriteTvAdapter extends RecyclerView.Adapter<FavoriteTvAdapter.Tv
 
     @Override
     public void onBindViewHolder(@NonNull TvViewHolder holder, int position) {
-        TvEntity tv = listTvs.get(position);
-        holder.bind(tv);
+        TvEntity tv = getItem(position);
+        if (tv != null) {
+            holder.bind(tv);
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return listTvs.size();
+    //@Override
+    //public int getItemCount() {
+    //    return listTvs.size();
+    //}
+
+    public TvEntity getSwipedData(int swipedPosition){
+        return getItem(swipedPosition);
     }
 
     public class TvViewHolder extends RecyclerView.ViewHolder {

@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.adeeva.katalogfilm.data.source.local.entity.TvEntity;
 import com.adeeva.katalogfilm.ui.favoritemovie.FavoriteMovieAdapter;
 import com.adeeva.katalogfilm.ui.favoritemovie.FavoriteMovieViewModel;
 import com.adeeva.katalogfilm.viewmodel.ViewModelFactory;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +32,8 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
 
     private RecyclerView rvFavorite;
     private ProgressBar progressBar;
+    private FavoriteTvViewModel viewModel;
+    private FavoriteTvAdapter adapter;
 
     public FavoriteTvFragment() {
         // Required empty public constructor
@@ -49,6 +53,7 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
 
         rvFavorite = view.findViewById(R.id.rv_favorite);
         progressBar = view.findViewById(R.id.progress_bar);
+        itemTouchHelper.attachToRecyclerView(rvFavorite);
     }
 
     @Override
@@ -57,13 +62,13 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
 
         if (getActivity() != null){
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
-            FavoriteTvViewModel viewModel = new ViewModelProvider(this, factory).get(FavoriteTvViewModel.class);
+            viewModel = new ViewModelProvider(this, factory).get(FavoriteTvViewModel.class);
 
-            FavoriteTvAdapter adapter = new FavoriteTvAdapter(this);
+            adapter = new FavoriteTvAdapter(this);
             progressBar.setVisibility(View.VISIBLE);
             viewModel.getFavoritesTv().observe(this, tvs -> {
                 progressBar.setVisibility(View.GONE);
-                adapter.setTv(tvs);
+                adapter.submitList(tvs);
                 adapter.notifyDataSetChanged();
             });
 
@@ -85,4 +90,28 @@ public class FavoriteTvFragment extends Fragment implements FavoriteTvFragmentCa
                     .startChooser();
         }
     }
+
+    private ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            return makeMovementFlags(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return true;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            if (getView() != null){
+                int swipedPosition = viewHolder.getAdapterPosition();
+                TvEntity tvEntity = adapter.getSwipedData(swipedPosition);
+                viewModel.setFavoriteTv(tvEntity);
+                Snackbar snackbar = Snackbar.make(getView(), R.string.message_undo, Snackbar.LENGTH_LONG);
+                snackbar.setAction(R.string.message_ok, v -> viewModel.setFavoriteTv(tvEntity));
+                snackbar.show();
+            }
+        }
+    });
 }
